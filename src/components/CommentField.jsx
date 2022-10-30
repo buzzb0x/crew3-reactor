@@ -1,5 +1,4 @@
 const CommentField = ({ fieldPosition, discardComment }) => {
-  console.log("FIELD POSITION", fieldPosition);
   return (
     <div
       style={{

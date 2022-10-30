@@ -1,8 +1,6 @@
 import CommentField from "./CommentField";
 
 const CommentIndicator = ({ style, open, position, discardComment }) => {
-  console.log("STYLE", style);
-
   const fieldPosition = {
     ...(position.y > 50 ? { bottom: "1.25rem" } : { top: "1.25rem" }),
     ...(position.x > 50 ? { right: "1.25rem" } : { left: "1.25rem" }),

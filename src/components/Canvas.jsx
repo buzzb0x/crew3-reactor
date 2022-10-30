@@ -15,9 +15,6 @@ const Canvas = () => {
       return;
     }
 
-    console.log("EVENT", e);
-    console.log("DIMENSIONS", e.view.innerWidth, e.view.innerHeight);
-
     const comment = {
       timestamp: e.timeStamp,
       open: true,
@@ -26,7 +23,6 @@ const Canvas = () => {
       yPercent: (e.clientY / e.view.innerHeight) * 100,
     };
 
-    console.log("NEW COMMENT", comment);
     setComments((state) => [comment, ...state]);
     setIsEditing(true);
   };
