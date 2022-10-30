@@ -3,22 +3,32 @@ import CommentIndicator from "./CommentIndicator";
 
 const Canvas = () => {
   const [comments, setComments] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const discardComment = (i) => {
+    setComments((state) => state.splice(i, 1));
+    setIsEditing(false);
+  };
 
   const pressHandler = (e) => {
+    if (isEditing) {
+      return;
+    }
+
     console.log("EVENT", e);
     console.log("DIMENSIONS", e.view.innerWidth, e.view.innerHeight);
 
     const comment = {
       timestamp: e.timeStamp,
       open: true,
-      x: e.clientX,
-      y: e.clientY,
+      draft: true,
       xPercent: (e.clientX / e.view.innerWidth) * 100,
       yPercent: (e.clientY / e.view.innerHeight) * 100,
     };
 
     console.log("NEW COMMENT", comment);
     setComments((state) => [comment, ...state]);
+    setIsEditing(true);
   };
 
   return (
@@ -68,13 +78,13 @@ const Canvas = () => {
       />
 
       <>
-        {comments.map((comment) => (
+        {comments.map((comment, i) => (
           <CommentIndicator
+            discardComment={discardComment}
+            index={i}
             key={comment.timestamp}
-            style={{
-              top: `calc(${comment.yPercent}% - 0.5rem)`,
-              left: `calc(${comment.xPercent}% - 0.5rem)`,
-            }}
+            open={comment.open}
+            position={{ x: comment.xPercent, y: comment.yPercent }}
           />
         ))}
       </>
